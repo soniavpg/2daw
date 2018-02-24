@@ -7,8 +7,8 @@
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<link rel="stylesheet" href="css/estilos.css" class="">
-	<link rel="stylesheet" href="css/animate.css">
-
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+	<script src="js/modernizr.custom.34978.js"></script>	
     
 
 
@@ -29,7 +29,7 @@
           <ul class="navbar-nav ml-auto">
             <li class="nav-item active"><a class="nav-link" href="index.html">Home</a></li>
             <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
-            <li class="nav-item"><a class="nav-link" href="travel.html">FAQ</a></li>
+            <li class="nav-item"><a class="nav-link" href="faq.html">FAQ</a></li>
             <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
           </ul>
         </div>
@@ -89,44 +89,50 @@
 				<p>
 					 <img src="img/muelledeportivo.jpg" alt="" class="img-fluid">
 				</p>
-			</aside>
-	
-     
- 
-        <div class="row">
-          <div class="col-lg-3 col-md-6 probootstrap-animate mb-3">
+			</aside>  
+	  </section>
 
-            <article style="background-image:url(img/img_1.jpg)">
-					 <img src="img/imagen_3.jpg" alt="" class="img-fluid">
-						<span>December 8, 2011 by Gisele Muller</span>
+
+
+
+	<section class="ib-container" id="ib-container">
+				<article >
+					<header>
 					
+					<span>December 8, 2011 by Gisele Muller</span>	
+					</header>
+
 					<p>Today we will show you some examples of websites that are using beautiful and inspiring color combinations that match perfectly and create an eye candy...</p>
 				</article>
+				<article>
+					<header>
+						<h3>
+						<span>December 8, 2011 by Patrick Cox</span>
+					</header>
+					<p>For me, Photoshop is becoming more and more of a prototyping or blue printing tool: it’s basically just a canvas...</p>
+				</article>
+				<article>
+					<header>
+						
+						<span>December 7, 2011 by Mary Lou </span>
+					</header>
+					<p>CSS3 opens up so many crazy possibilities and today we want to show you how to go wild with splash and coming soon page effects using CSS3 animations.</p>
+				</article>
+				<article>
+					<header>
+						
+						<span>December 5, 2011 by Mary Lou </span>
+					</header>
+					<p>After getting the request, we are going to show you how to create a “slide-in on scroll” effect. You’ve probably seen this cool effect on some websites, like on Nizo or in the portfolio section of brilliantly designed La Moulade. </p>
+				</article>
+				
+				
+				
+				
+				
+			</section>
 
 
-          </div>
-          <div class="col-lg-3 col-md-6 probootstrap-animate mb-3">
-            <a href="#" class="probootstrap-thumbnail">
-              <img src="img/img_2.jpg" alt="" class="img-fluid">
-              
-            </a>
-          </div>
-          <div class="col-lg-3 col-md-6 probootstrap-animate mb-3">
-            <a href="#" class="probootstrap-thumbnail">
-              <img src="img/img_3.jpg" alt="" class="img-fluid">
-             
-            </a>
-          </div>
-          <div class="col-lg-3 col-md-6 probootstrap-animate mb-3">
-            <a href="#" class="probootstrap-thumbnail">
-              <img src="img/img_4.jpg" alt="" class="img-fluid">
-              
-            </a>
-          </div>
-        </div>
-     
-  
-	  </section>
 
 		<blockquote class="blockquote text-center">
 		  <footer class="blockquote-footer">	
@@ -141,6 +147,40 @@
 
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
 	</script>
+
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				
+				var $container	= $('#ib-container'),
+					$articles	= $container.children('article'),
+					timeout;
+				
+				$articles.on( 'mouseenter', function( event ) {
+						
+					var $article	= $(this);
+					clearTimeout( timeout );
+					timeout = setTimeout( function() {
+						
+						if( $article.hasClass('active') ) return false;
+						
+						$articles.not( $article.removeClass('blur').addClass('active') )
+								 .removeClass('active')
+								 .addClass('blur');
+						
+					}, 65 );
+					
+				});
+				
+				$container.on( 'mouseleave', function( event ) {
+					
+					clearTimeout( timeout );
+					$articles.removeClass('active blur');
+					
+				});
+			
+			});
+		</script>
 </body>
 
 </html>

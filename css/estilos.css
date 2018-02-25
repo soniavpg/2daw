@@ -26,13 +26,23 @@ footer{
 img{
 	width: 200px;
 }
-.publicidad{
-	padding: 0;
+.publicidad{ padding: 0;}
+.publicidad, .noticias{
+	padding-top: 20px;
+    padding-bottom: 30px;
 }
 .publicidad-img{
 	background-size: cover;
     background-position: center;
     height: 150px;
    
-    margin: 5px 10px;
+    margin: 15px 10px;
+}
+#section-contact {padding-top: 30px;}
+.blockquote-footer {color: white;}
+
+.publicidad {
+	-webkit-box-shadow: -14px 2px 26px -10px #2c3e50;
+	-moz-box-shadow: -14px 2px 26px -10px #2c3e50;
+	box-shadow: -14px 2px 26px -10px #2c3e50;
 }

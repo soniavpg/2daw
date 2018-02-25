@@ -6,21 +6,42 @@
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-	 <link rel="stylesheet" href="fonts/ionicons/css/ionicons.min.css">
+	<link rel="stylesheet" type="text/css" href="css/component.css" />
+	<link rel="stylesheet" href="fonts/ionicons/css/ionicons.min.css">
     <link rel="stylesheet" type="text/css" href="css/style.css" />
 	<script src="js/modernizr.custom.34978.js"></script>	
     <link rel="stylesheet" href="css/estilos.css" class="">
+    <script src="js/modernizr.custom.js"></script>
+
 
 
 </head>
 
 <body>
+
+	 <div class="md-modal md-effect-4  horizontal" id="modal-4">
+      <div class="md-content ib-container">
+      
+         
+           <article class="horizontal md-trigger" data-modal="modal-4">
+            <header>
+                <div style="background-size: cover;"> 
+                  <img src="img/img2.jpg" alt="" title="" />
+                </div>
+              <span>Cras tristique efficitur est, vitae luctus tortor condimentum non....</span>
+             </header>
+             <p>Febrero 8, 2018 por Pepito Perez</p>  
+            </article>
+          <button class="md-close">Close me!</button>
+        </div>  
+    </div>
+
+
 	<div class="container">
 		<a class="navbar-brand" href="index.html"><img id="logo_cabecera" src="img/logo_marina_wifi.png" alt="" title="Logo Marina Wifi"></a>
 	</div>
+	
 	<header>	
-
-
 	<nav class="navbar navbar-expand-lg navbar-dark probootstrap_navbar" id="probootstrap-navbar">
       <div class="container">
         
@@ -38,12 +59,6 @@
       </div>
     </nav>
     <!-- END nav -->
-
-
-
-
-
-
 	</header>
 
 	<div class="container">
@@ -93,34 +108,30 @@
 	  		<div class="container">
 	  			<section class="ib-container" id="ib-container">
 
-					<article >
-						<header>
-						
+					<article class="col-lg-3 col-md-12 md-trigger" data-modal="modal-4"">
+						<img src="img/muelledeportivo.jpg">
+						<header>		
 						<span>December 8, 2011 by Gisele Muller</span>	
 						</header>
 
-						<p>Today we will show you some examples of websites that are using beautiful and inspiring color combinations that match perfectly and create an eye candy...</p>
+						<h5>Today we will show you some examples of websites that are using ...</h5>
 					</article>
-					<article>
+					<article class="col-lg-3 col-md-12 md-trigger" data-modal="modal-4"">
+						<img src="img/muelledeportivo.jpg">
 						<header>
 							<span>December 8, 2011 by Patrick Cox</span>
 						</header>
-						<p>For me, Photoshop is becoming more and more of a prototyping or blue printing tool: it’s basically just a canvas...</p>
+						<h5>For me, Photoshop is becoming more and more of a prototyping or blue printing ...</h5>
 					</article>
-					<article>
+					<article class="col-lg-3 col-md-12 md-trigger" data-modal="modal-4"">
+						<img src="img/muelledeportivo.jpg">
 						<header>
 							
 							<span>December 7, 2011 by Mary Lou </span>
 						</header>
-						<p>CSS3 opens up so many crazy possibilities and today we want to show you how to go wild with splash and coming soon page effects using CSS3 animations.</p>
+						<h5>CSS3 opens up so many crazy possibilities and today we want to show you how ....</h5>
 					</article>
-					<article>
-						<header>
-							
-							<span>December 5, 2011 by Mary Lou </span>
-						</header>
-						<p>After getting the request, we are going to show you how to create a “slide-in on scroll” effect. You’ve probably seen this cool effect on some websites, like on Nizo or in the portfolio section of brilliantly designed La Moulade. </p>
-					</article>
+					
 					
 				</section>
 			</div>
@@ -145,11 +156,16 @@
 
 		<blockquote class="blockquote text-center">
 		  <footer class="blockquote-footer">	
-		  	Para contratar nuestros espacios de publicidad. <br> 
-			Pongáse en contacto con nosotros.<br>
+		  	Para contratar nuestros espacios de publicidad<br> 
+			póngase en contacto con nosotros en<br>
 			t: +34 609 123 700 - info@marinatf.es </footer>
 		</blockquote>
 
+    <div class="md-overlay"></div><!-- the overlay element -->
+
+    <!-- classie.js by @desandro: https://github.com/desandro/classie -->
+    <script src="js/classie.js"></script>
+    <script src="js/modalEffects.js"></script>
 
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">	
 	</script>

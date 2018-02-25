@@ -13,14 +13,17 @@
     <link rel="stylesheet" href="css/estilos.css" class="">
     <script src="js/modernizr.custom.js"></script>
 
-
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" 
+	integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">	
+	</script>
+	
 
 </head>
 
 <body>
 
 	 <div class="md-modal md-effect-4  horizontal" id="modal-4">
-      <div class="md-content ib-container">
+      <div class="md-content">
       
          
            <article class="horizontal md-trigger" data-modal="modal-4">
@@ -98,7 +101,7 @@
 
 			</article>
 			<aside class="col-xs-12 col-sm-8 col-md-6">
-				
+
 			</aside>  
 	  </section>
 	  
@@ -108,46 +111,28 @@
 	  		<div class="container">
 	  			<section class="ib-container" id="ib-container">
 
-					<article class="col-lg-3 col-md-12 md-trigger" data-modal="modal-4"">
-						<img src="img/muelledeportivo.jpg">
-						<header>		
-						<span>December 8, 2011 by Gisele Muller</span>	
-						</header>
-
-						<h5>Today we will show you some examples of websites that are using ...</h5>
-					</article>
-					<article class="col-lg-3 col-md-12 md-trigger" data-modal="modal-4"">
-						<img src="img/muelledeportivo.jpg">
-						<header>
-							<span>December 8, 2011 by Patrick Cox</span>
-						</header>
-						<h5>For me, Photoshop is becoming more and more of a prototyping or blue printing ...</h5>
-					</article>
-					<article class="col-lg-3 col-md-12 md-trigger" data-modal="modal-4"">
-						<img src="img/muelledeportivo.jpg">
-						<header>
-							
-							<span>December 7, 2011 by Mary Lou </span>
-						</header>
-						<h5>CSS3 opens up so many crazy possibilities and today we want to show you how ....</h5>
-					</article>
-					
-					
+				
 				</section>
 			</div>
 	  		</div>
 
 
 	  		<div class="publicidad col-xs-12 col-sm-4 col-md-3" >
-	  			<div class="publicidad-img" style="background-image: url('img/img1.jpg')">
-					
-				</div>
+				<a href="#">
+					<div class="publicidad-img" style="background-image: url('img/img1.jpg')">
+						<div class="info"></div>
+					</div>
+				</a>
+				<a href="#">
 				<div class="publicidad-img" style="background-image: url('img/img2.jpg')">
 					
 				</div>
+				</a>
+				<a href="#">
 				<div class="publicidad-img" style="background-image: url('img/img3.jpg')">
 					
 				</div>
+				</a>
 	  		</div>
 	  	</div>
 	 
@@ -167,13 +152,57 @@
     <script src="js/classie.js"></script>
     <script src="js/modalEffects.js"></script>
 
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">	
-	</script>
+
 
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
 	</script>
 
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+	
+	<script>// Carga de las noticiasv al entrar en la página
+		if (window.XMLHttpRequest)
+		{
+			// Objeto para IE7+, Firefox, Chrome, Opera, Safari
+			xmlhttp=new XMLHttpRequest();
+		}else{
+			// Objeto para IE6, IE5
+			xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		
+		xmlhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				// Obtenemos un objeto XMLDocument con el contenido del archivo xml del servidor
+				xmlDoc=xmlhttp.responseXML;
+				// Obtenemos todos los nodos item del xml fuente
+				var noticias = xmlDoc.getElementsByTagName("item");
+				// Recorremos todos los elementos obtenidos
+				for(var i=0;i<noticias.length;i++)
+				{			
+					// De cada elemento noticia, obtenemos los campos que necesitamos para componer nuestro cuadro de noticias
+					titulo 		= noticias[i].getElementsByTagName("title")[0].childNodes[0].nodeValue
+					fecha 		= noticias[i].getElementsByTagName("pubDate")[0].childNodes[0].nodeValue
+					categoria	= noticias[i].getElementsByTagName("category")[0].childNodes[0].nodeValue
+					imagen 		= "<div style=\"background-image: url('" 
+										+ noticias[i].getElementsByTagName("img")[0].childNodes[0].nodeValue
+										+ "')\"></div>";
+					
+					// Construimos dinámicamente cada noticia dentro del contenedor de noticias central
+					$("section.ib-container").append(
+						"<article class='col-lg-3 col-md-12 md-trigger' data-modal='modal-4'>" + 
+							imagen + 
+							"<header><span>" + fecha + " - " + categoria + "</span></header>" +
+							"<h5>" + titulo + "</h5>" +
+						"</article>");
+				}
+			}
+		}
+ 
+		// Abrimos el archivo que esta alojado en el servidor
+		xmlhttp.open("GET","http://192.168.1.36/Noticias/noticias.xml",true);
+		xmlhttp.send();
+ 
+	</script>
+	
+	
 		<script type="text/javascript">
 			$(function() {
 				

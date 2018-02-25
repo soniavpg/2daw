@@ -22,23 +22,26 @@
 
 <body>
 
-	 <div class="md-modal md-effect-4  horizontal" id="modal-4">
-      <div class="md-content">
-      
-         
-           <article class="horizontal md-trigger" data-modal="modal-4">
-            <header>
-                <div style="background-size: cover;"> 
-                  <img src="img/img2.jpg" alt="" title="" />
-                </div>
-              <span>Cras tristique efficitur est, vitae luctus tortor condimentum non....</span>
-             </header>
-             <p>Febrero 8, 2018 por Pepito Perez</p>  
-            </article>
-          <button class="md-close">Close me!</button>
-        </div>  
-    </div>
-
+	<div class="modal fade" id="noticiaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<article id="articulo-modal" data-toggle="modal" data-target="#noticiaModal" identificador="1" class="col-lg-3 col-md-12">
+				<div style="background-image: url('img/img_1.jpg')">
+					<div><h5>El Parlamento Europeo pide vetar la minería submarina ante sus efectos en los caladeros pesqueros</h5></div>
+				</div>
+				<header>
+					<span>Fri, 23 Feb 2018 23:31:30 +0000 - Energía y Minerales</span>
+				</header>
+				<div class="contenido">
+				<span>Cada 22 de febrero se celebra en la Argentina el Día de la Antártida. La fecha recuerda la primera vez que la bandera argentina fue izada en ese territorio: ocurrió en un día como hoy de 1904 durante la inauguración de la Base Antártica Orcadas en la isla Laurie, que forma parte de las Islas Orcadas del Sur.
+Desde entonces, la bandera argentina flamea sin interrupción en el continente blanco, que cubierto de gigantescas masas de hielo de hasta 4500 metros de espesor y barrida por vientos es todavía un lugar misterioso.
+Sin embargo, el origen de esta historia se remonta a 1902 cuando la Real Sociedad de Geografía de Escocia organizó una expedición científica hacia el mar antártico. La expedición estuvo a cargo de William Speirs Bruce a bordo del Scotia.<span>
+				<span><a target="_blank" href="http://www.nuestromar.org/65934-02-2018/se-conmemoraron-114-os-permanencia-argentina-ininterrumpida-en-ant-rtida"> (ver noticia original)</a>
+				</div>
+			</article>
+		</div>
+	  </div>
+	</div>
 
 	<div class="container">
 		<a class="navbar-brand" href="index.html"><img id="logo_cabecera" src="img/logo_marina_wifi.png" alt="" title="Logo Marina Wifi"></a>
@@ -110,8 +113,6 @@
 	  		<div class="noticias col-xs-12 col-sm-8 col-md-9" >
 	  		<div class="container">
 	  			<section class="ib-container" id="ib-container">
-
-				
 				</section>
 			</div>
 	  		</div>
@@ -146,13 +147,6 @@
 			t: +34 609 123 700 - info@marinatf.es </footer>
 		</blockquote>
 
-    <div class="md-overlay"></div><!-- the overlay element -->
-
-    <!-- classie.js by @desandro: https://github.com/desandro/classie -->
-    <script src="js/classie.js"></script>
-    <script src="js/modalEffects.js"></script>
-
-
 
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
 	</script>
@@ -167,17 +161,19 @@
 			// Objeto para IE6, IE5
 			xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
 		}
+		var noticias;
 		
 		xmlhttp.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
 				// Obtenemos un objeto XMLDocument con el contenido del archivo xml del servidor
 				xmlDoc=xmlhttp.responseXML;
 				// Obtenemos todos los nodos item del xml fuente
-				var noticias = xmlDoc.getElementsByTagName("item");
+				noticias = xmlDoc.getElementsByTagName("item");
 				// Recorremos todos los elementos obtenidos
 				for(var i=0;i<noticias.length;i++)
 				{			
 					// De cada elemento noticia, obtenemos los campos que necesitamos para componer nuestro cuadro de noticias
+					identificador = noticias[i].getElementsByTagName("id")[0].childNodes[0].nodeValue
 					titulo 		= noticias[i].getElementsByTagName("title")[0].childNodes[0].nodeValue
 					fecha 		= noticias[i].getElementsByTagName("pubDate")[0].childNodes[0].nodeValue
 					categoria	= noticias[i].getElementsByTagName("category")[0].childNodes[0].nodeValue
@@ -187,7 +183,8 @@
 					
 					// Construimos dinámicamente cada noticia dentro del contenedor de noticias central
 					$("section.ib-container").append(
-						"<article class='col-lg-3 col-md-12 md-trigger' data-modal='modal-4'>" + 
+						"<article data-toggle='modal' data-target='#noticiaModal' identificador='" + identificador + "' " + 
+							"class='col-lg-3 col-md-12'>" + 
 							imagen + 
 							"<header><span>" + fecha + " - " + categoria + "</span></header>" +
 							"<h5>" + titulo + "</h5>" +
@@ -197,9 +194,10 @@
 		}
  
 		// Abrimos el archivo que esta alojado en el servidor
-		xmlhttp.open("GET","http://192.168.1.36/Noticias/noticias.xml",true);
+		xmlhttp.open("GET","http://localhost/Noticias/noticias.xml",true);
 		xmlhttp.send();
  
+
 	</script>
 	
 	

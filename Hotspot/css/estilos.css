@@ -1,0 +1,74 @@
+body {
+  font-family: "Work Sans", Arial, sans-serif; 
+  position: relative;
+}
+
+header{
+	background:#2c3e50;
+	color:#fff;
+}
+
+.color1{
+	background: #34495e;
+	color:#fff;
+}
+
+footer{
+	background: #34495e;
+	color:#fff;
+}
+
+#cortina.visible { position: absolute; top:0; display:block; z-index: 50;
+			width: 100%; height: 100%; background-color:rgba(44,62,80,0.5); }
+
+#main-article{ background-color: rgba(255,255,255,0.5);}
+
+.main {background: url("../img/muelledeportivo.jpg");
+    background-size: cover;
+    background-position: center;
+}
+img{
+	width: 200px;
+}
+.publicidad{ padding: 0;}
+.publicidad a{color: #2c3e50;}
+.publicidad, .noticias{
+	padding-top: 20px;
+    padding-bottom: 30px;
+}
+.publicidad-img{
+	background-size: cover;
+    background-position: center;
+    height: 150px;
+	position: relative;
+    margin: 15px 10px;
+}
+.publicidad-img .info{
+	position: absolute;
+    top: 40%;
+    background: rgba(255,255,255,0.5);
+	transition: background 0.5s;
+    width: 100%;
+	text-align: center;
+}
+.publicidad-img .info:hover{
+    background: rgba(255,255,255,0.9);
+	transition: background 0.5s;
+}
+
+
+#section-contact {padding-top: 30px;}
+.blockquote-footer {color: white;}
+
+.publicidad {
+	-webkit-box-shadow: -14px 2px 26px -10px #2c3e50;
+	-moz-box-shadow: -14px 2px 26px -10px #2c3e50;
+	box-shadow: -14px 2px 26px -10px #2c3e50;
+}
+.modal-content {padding: 20px;}
+.modal-content article {max-width: unset;}
+.modal-content article div:first-child {background-position: 20% 50%; background-size: cover; height: 250px; position: relative;}
+.modal-content article .contenido {text-align: justify; padding: 20px;}
+.modal-content article h5{ position: absolute; bottom: 0; padding: 0px 10px 0px 10px; text-shadow: 0px 1px #fff;}
+.modal-content article header {padding: 5px;}
+

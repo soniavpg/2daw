@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Activity 4: Arkanoid (Sonia Perez Garcia)</title>
+    <style>
+
+    	#stage {
+    		width: 100%;
+    		height: 400px;
+    		background-image: url("fondo.png");
+    		position: relative;
+    	}
+      .row{
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        /*border: 1px solid #F00;*/
+      }
+
+
+      #ball { 
+      	width: 20px;
+      	height: 20px;
+      	-webkit-border-radius: 25px;
+      	-moz-border-radius: 25px;
+      	border-radius: 25px;
+      	background: pink;
+      	position: absolute;
+
+      }
+      .lost{ opacity: 0; transition: opacity 0.5s;}
+
+      #paddle {
+      	width: 100px;
+      	height: 20px;
+      	-webkit-border-radius: 5px;
+      	-moz-border-radius: 5px;
+      	border-radius: 5px;
+      	position: absolute;
+	    bottom: 0;
+	    margin: auto;
+	    left: 0;
+	    right: 0;
+	    background: radial-gradient(black 15%, transparent 16%) 0 0, 
+	    			radial-gradient(black 15%, transparent 16%) 8px 8px, 
+	    			radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px, 
+	    			radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 4px 4px;
+		background-color:#282828;
+		background-size:5px 10px;
+      }
+      #marker {font-family: sans-serif; background-color: darkgray; padding: 20px;
+      			color: white; font-size: 1.5em; font-weight: bold;}
+
+      .hardbrick{border: outset lightgray; background: gray;}
+      .softbrick{border: outset pink; background: hotpink;}
+      .mediumbrick{border: outset lightblue; background: blue;}
+      .broken {opacity: 0; transition: opacity 1s;}
+      .one-live {opacity: 0.6; transition: opacity 1s;}
+      .two-lives {opacity: 0.8; transition: opacity 1s;}
+      .normalbrick{}
+
+
+
+    </style>
+  </head>
+<body>
+<div id="marker"></div>
+<div id="stage">
+	<div id="rows">
+	</div>
+	<div id="ball"></div>
+	<div id="paddle"></div>
+ </div>
+
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+
+	<script>
+		
+		var stage = $("#stage");
+		var brickRows = 4;
+		var bricksPerRow = 9;
+		var level;
+		var score = 0;
+
+
+	    function makeBricks(){
+	      	level = [new Brick (1), new Brick (3), new Brick (1), new Brick (1), new Brick (1), new Brick (3), new Brick (1), new Brick (3), new Brick (1),
+	      			new Brick (1), new Brick (3), new Brick (2), new Brick (1), new Brick (1), new Brick (3), new Brick (1), new Brick (3), new Brick (1),
+	      			new Brick (2), new Brick (3), new Brick (1), new Brick (2), new Brick (2), new Brick (3), new Brick (1), new Brick (3), new Brick (1),
+	      			new Brick (1), new Brick (3), new Brick (1), new Brick (1), new Brick (2), new Brick (3), new Brick (1), new Brick (3), new Brick (1)
+	      			 ];
+	      }
+
+      	function Brick(lives){
+			this.width = 100;
+			this.height = 20;
+			this.lives = lives;
+			this.divBrick = null;
+			switch (lives){
+				case 1: this.cssClass = "softbrick"; break;
+				case 2: this.cssClass = "mediumbrick"; break;
+				case 3: this.cssClass = "hardbrick"; break;
+				default: this.cssClass = "normalbrick;"
+			}
+
+		}
+
+		function drawBricks(){
+			var rowsContainer = $("#rows");
+			var brickCounter = 1;
+			var row;
+			var brick;
+
+			for (var i = 0; i < level.length; i++){
+				if (brickCounter == 1){
+					row = $("<div class='row'></div>").appendTo(rowsContainer);
+				}
+				brick = level[i];
+				divBrick = $("<div class='brick " + brick.cssClass + "' style='width:" + brick.width + "px;height:" + brick.height + "px;'></div>").appendTo(row);
+				brick.divBrick = divBrick;
+				brickCounter++;
+				if (brickCounter > bricksPerRow)
+					brickCounter = 1;
+
+			}
+
+		}
+
+   	  function refreshMarker(){
+   	  	 $("#marker").html("Points: " + score + " - Lives: " + lives);
+   	  }
+
+		var ballRadius = 10;
+
+		var x = stage.width() / 2;
+    	var y = stage.height() - 20;
+		var ball = $("#ball");
+		
+
+      	ball.css( 'left' , x - ballRadius );
+      	ball.css( 'top' , y - ballRadius *2 );
+
+    	var dx = 2;
+    	var dy = -2;
+    	
+    	var paddleWidth = 100;
+    	var paddleHeight = 20;
+    	var paddleX = (stage.width()-paddleWidth)/2;
+
+    	var lives = 3;
+
+    	document.onkeydown = handleKeyDown;
+
+      
+      makeBricks();
+      drawBricks();
+      refreshMarker();
+   
+
+      function handleKeyDown(event){
+
+      		var pos = $("#paddle").offset().left;
+
+          if (event.keyCode==37){
+          	if (pos - 40 < 0) 
+          		paddleX = 0;
+          	else          		
+          		paddleX = pos - 40;
+     	  }
+
+          if (event.keyCode==39){
+          	if (pos + 40 + paddleWidth > stage.width()) 
+          		paddleX = stage.width() - paddleWidth;
+          	else          		
+          		paddleX = pos + 40;
+          }
+
+          $("#paddle").offset({ left : paddleX});
+
+      }
+
+	  function collisionDetection() {
+	    for(c=0; c<level.length; c++) {
+	    	brick = level[c];
+	    	var bx = brick.divBrick.position().left;
+	    	var by = brick.divBrick.position().top + brick.divBrick.outerHeight();
+	    	if (brick.lives > 0){
+	    		if (x + ballRadius >= bx && x - ballRadius <= bx + brick.width && y - ballRadius <= by  && y + ballRadius >= by - brick.height){
+	    			
+	    			dy = -dy;
+	    			if (--brick.lives == 0){
+	    				
+	    				score++;
+	    				brick.divBrick.removeClass('one-live');
+	    				brick.divBrick.addClass("broken");
+	    				refreshMarker();
+	    				
+	    			} 	    			
+	    			if (brick.lives == 2) brick.divBrick.addClass('two-lives');
+	    			if (brick.lives == 1) {brick.divBrick.removeClass('two-lives');brick.divBrick.addClass('one-live');}
+	    			
+	    		}
+	    	}
+
+	    }
+	   }
+      
+      function moveBall(){
+  		x += dx;
+		y += dy;
+
+      	ball.css('left', x - ballRadius);
+      	ball.css('top', y - ballRadius);
+
+      	collisionDetection();
+
+    	if(x + dx > stage.width() - ballRadius || x + dx < ballRadius) {
+    		dx = -dx;
+		}
+
+		if(y + dy < ballRadius ) {
+	        dy = -dy;
+	    }
+	    else 
+	    	if(y + dy > stage.height() - paddleHeight - ballRadius) {
+		        if(x > paddleX && x < paddleX + paddleWidth) {
+		            dy = -dy;
+		        }
+		        else {
+		            lives=lives-1;
+		            refreshMarker();
+		            ball.addClass("lost");
+		            if (lives>0){
+						x = stage.width()/2;
+	    				y = stage.height() - 60; 
+	    				ball.css( 'left' , x - ballRadius );
+      					ball.css( 'top' , y - ballRadius );
+	     				dx = 2;
+	     				dy = -2;
+	     				ball.removeClass("lost");
+	     			}
+					else 
+					{
+						clearInterval(juego);
+						
+					    $("#marker").html("Points: " + score + " - Lives: " + lives + " >>> GAME OVER!!");
+					}
+		        }
+	    	}
+      	
+      }
+      
+      juego = setInterval(moveBall, 5);
+
+      </script>
+
+</body>
+</html>
